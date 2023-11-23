@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import './App.css'
 import Todolist, { TaskType } from './Todolist';
 import { v1 } from 'uuid';
+import { AddItemForm } from './AddItemForm';
 
 
 export type FilterValuesType = "All" | "Active" | "Completed";
@@ -39,6 +40,15 @@ function App() {
       { id: v1(), title: 'GraphQL', isDone: false },
     ]
   })
+
+  // function addTidilist
+  const addTodolist = (title: string) => {
+    let newTodolistId = v1();
+    let newTodolist: TodolistType = { id: newTodolistId, title: title, filter: "All" };
+    setTodolists([newTodolist, ...todolists]);
+    setTasks({ ...tasks, [newTodolistId]: [] })
+  }
+
 
   // let [tasks, setTasks] = useState(
   //   [
@@ -117,6 +127,7 @@ function App() {
 
   return (
     <div className='App'>
+      <AddItemForm addItem={addTodolist}/>
       {todolists.map(tl => {
         let allTodolistTasks = tasks[tl.id] // здесь храним отфильтрованные таски
         let tasksForTodolist = allTodolistTasks// ??????
@@ -138,7 +149,8 @@ function App() {
             changeFilter={changeFilter}
             addTask={addTask}
             changeTaskStatus={changeTaskStatus}
-            removeTodolist ={removeTodolist}
+            removeTodolist={removeTodolist}
+            addTodolist = {addTodolist}
           />
         )
       })}
