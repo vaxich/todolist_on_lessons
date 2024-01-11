@@ -45,28 +45,13 @@ function App() {
     ]
   })
 
-  // function addTidilist
+  // function addTodolist
   const addTodolist = (title: string) => {
     let newTodolistId = v1();
     let newTodolist: TodolistType = { id: newTodolistId, title: title, filter: "All" };
     setTodolists([newTodolist, ...todolists]);
     setTasks({ ...tasks, [newTodolistId]: [] })
   }
-
-
-  // let [tasks, setTasks] = useState(
-  //   [
-  //     { id: v1(), title: "HTML&CSS", isDone: true },
-  //     { id: v1(), title: "JS", isDone: true },
-  //     { id: v1(), title: "ReactJS", isDone: false },
-  //     { id: v1(), title: "Rest API", isDone: false },
-  //     { id: v1(), title: "GraphQL", isDone: false },
-  //   ]
-  // )
-  // filter state
-  //let [filter, setFilter] = useState<FilterValuesType>("All");
-
-
 
   // function removed one tasks
   const removeTask = (todolistId: string, taskId: string) => {
