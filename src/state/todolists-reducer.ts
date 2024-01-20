@@ -6,16 +6,12 @@ export const todolistsReducer = (state: TodolistType[], action: todolistsReducer
         case "REMOVE-TODOLIST": {
             return state.filter(tl => tl.id !== action.payload.todolistId)
         } case "ADD-TODOLIST": {
-            let newTodolistId = v1();
-            let newTodolist: TodolistType = { id: newTodolistId, title: action.payload.title, filter: "All" };
+            //let newTodolistId = v1();
+            let newTodolist: TodolistType = { id: action.payload.newTodolistId, title: action.payload.title, filter: "All" };
             return [newTodolist, ...state]
         } case "CHANGE-TODOLIST-TITLE": {
             return state.map(tl => tl.id === action.payload.todolistId ? { ...tl, title: action.payload.newTodolistTitle } : tl)
-        } case "CHANGE-TODOLIST-FILTER": {
-            // let todolist = todolists.find(tl => tl.id === todolistId)
-            // if (todolist) {
-            //     todolist.filter = value
-            //     setTodolists([...todolists])
+        } case "CHANGE-TODOLIST-FILTER": {           
             return state.map(tl => tl.id === action.payload.todolistId ? { ...tl, filter: action.payload.value } : tl)
             }
         default: return state
@@ -38,9 +34,10 @@ export const RemoveTodolistAC = (todolistId: string) => {
 }
 
 export const AddTodolistAC = (title: string) => {
+    let newTodolistId = v1();
     return {
         type: "ADD-TODOLIST",
-        payload: { title }
+        payload: { title , newTodolistId}
     } as const
 }
 
@@ -57,3 +54,4 @@ export const ChangeTodolistFilerAC = (todolistId: string, value: FilterValuesTyp
         payload: { todolistId, value }
     } as const
 }
+
